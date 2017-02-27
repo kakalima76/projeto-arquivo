@@ -75,7 +75,7 @@
         <!-- IMPORTANT: Do not include a weinre script tag as part of your release builds! -->
         <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
         <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
-        <div class="upage vertical-col left page-login-background" id="mainpage" ng-controller="loginController">
+        <div class="upage vertical-col left page-login-background error" id="mainpage" ng-controller="loginController">
 
             <div class="widget uib_w_1 scale-image d-margins" data-uib="media/img" data-ver="0">
                 <figure class="figure-align">
@@ -83,15 +83,23 @@
                     <figcaption data-position="bottom"></figcaption>
                 </figure>
             </div>
+
+            <div>
+                <center><span class="error" ng-show="showError">{{message}}</span>
+                </center>
+            </div>
+
             <div class="table-thing widget uib_w_2 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+
                 <label class="narrow-control" for="txt-user"></label>
-                <input class="wide-control form-control default" type="email" id="txt-user" placeholder="email">
+                <input class="wide-control form-control default" type="email" id="txt-user" placeholder="email" ng-model="acesso.user">
             </div>
             <div class="table-thing widget uib_w_3 d-margins senha-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
                 <label class="narrow-control" for="txt-pass"></label>
-                <input class="wide-control form-control default" type="password" placeholder="senha" id="txt-pass">
+                <input class="wide-control form-control default" type="password" placeholder="senha" id="txt-pass" ng-model="acesso.pass">
             </div>
-            <button class="btn widget uib_w_4 d-margins senha-margins btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-login">ENTRAR</button>
+            <button class="btn widget uib_w_4 d-margins senha-margins btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-login" ng-click="logar(acesso)">ENTRAR</button>
+
         </div>
         <div class="upage hidden page-login-background" id="page-arquivar" ng-controller="arquivarController">
             <div class="upage-outer">
@@ -132,6 +140,7 @@
                         <label class="narrow-control"></label>
                         <input class="wide-control form-control default" type="text" placeholder="etiqueta" ng-model="processo.etiqueta">
                     </div>
+                    <button class="btn widget uib_w_26 d-margins btn-font-styles btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-arquivar" ng-click="arquivar(processo)">ARQUIVAR</button>
                 </div>
                 <div class="uib-footer uib-footer-fixed footer-bg container-group inner-element uib_w_5" data-uib="layout/footer" data-ver="0" id="footer-arquivar">
                     <h2></h2>
@@ -157,22 +166,27 @@
                 </div>
                 <div class="upage-content ac0 content-area vertical-col left" id="page_65_23">
                     <div class="table-thing widget uib_w_19 d-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
-                        <label class="narrow-control"></label>
-                        <input class="wide-control form-control default" type="text" placeholder="processo" maxlength="14" ng-model="desarquivo.numero">
+                        <label class="narrow-control" for="txt-processo"></label>
+                        <input class="wide-control form-control default" type="text" placeholder="processo" maxlength="14" ng-model="desarquivo.numero" id="txt-processo" ng-blur="buscar(desarquivo.numero)">
+                    </div>
+                    <div class="table-thing widget uib_w_25 d-margins input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                        <label class="narrow-control" for="txt-etiqueta"></label>
+                        <input class="wide-control form-control default" type="text" placeholder="etiqueta" id="txt-etiqueta" ng-model="desarquivo.etiqueta">
                     </div>
                     <div class="table-thing widget uib_w_20 input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
-                        <label class="narrow-control"></label>
-                        <input class="wide-control form-control default" type="text" placeholder="CPF do solicitante" ng-model="desarquivo.cpf" ng-blur="testaCPF()" maxlength="11">
+                        <label class="narrow-control" for="txt-cpf"></label>
+                        <input class="wide-control form-control default" type="text" placeholder="CPF do solicitante" ng-model="desarquivo.cpf" ng-blur="testaCPF()" maxlength="11" id="txt-cpf">
                     </div>
                     <div class="table-thing widget uib_w_21 d-margins label-styles input-margins" data-uib="twitter%20bootstrap/select" data-ver="1">
                         <label class="narrow-control label-inline">MOTIVO</label>
-                        <select class="wide-control form-control default" ng-model="desarquivo.motivo">
-                            <option value="">selecione ...</option>
-                            <option value="01">VISTAS</option>
-                            <option value="02">PRAZO DE GUARDA</option>
+                        <select class="wide-control form-control default" ng-model="desarquivo.motivo" id="select-motivo">
+                            <option>selecione ...</option>
+                            <option>VISTAS</option>
+                            <option>PRAZO DE GUARDA</option>
                         </select>
                     </div>
-                    <button class="btn widget uib_w_22 btn-primary input-margins" data-uib="twitter%20bootstrap/button" data-ver="1" ng-click="desarquivar()">DESARQUIVAR</button>
+                    <button class="btn widget uib_w_22 input-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" ng-click="desarquivar()" id="btn-desarquivar">DESARQUIVAR</button>
+
                 </div>
                 <div class="uib-footer uib-footer-fixed footer-bg container-group inner-element uib_w_8" data-uib="layout/footer" data-ver="0" id="footer-desarquivar">
                     <h2></h2>

@@ -550,3 +550,27 @@ label:empty {
     text-align: center;
   }
 }
+@media all and (min-width: 0px) {
+  .row-height-1 > .col > .content-area {
+    min-height: 100px;
+  }
+}
+@media all {
+  .grid-pad {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+.span-styles {
+  font-color: white;
+}
+.error {
+  color: red;
+}
+@media all {
+  .btn-font-styles {
+    color: #080949;
+  }
+}

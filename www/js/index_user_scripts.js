@@ -10,26 +10,6 @@
     
     
      /* button  #btn-go-desarquivar */
-    
-    
-        /* button  #btn-go-arquivar */
-    
-    
-        /* button  #btn-login */
-    
-    
-        /* button  #btn-login */
-    
-    
-        /* button  #btn-login */
-    $(document).on("click", "#btn-login", function(evt)
-    {
-         /*global activate_page */
-         activate_page("#page-arquivar"); 
-         return false;
-    });
-    
-        /* button  #btn-go-desarquivar */
     $(document).on("click", "#btn-go-desarquivar", function(evt)
     {
          /*global activate_page */
