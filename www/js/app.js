@@ -281,12 +281,23 @@ $scope.processo = {}
         
     }
     
-    $scope.desarquivar = function(){
-        
+    $scope.desarquivar = function(obj){
+        obj['data'] = " ";
+        obj['valor'] = 25000;
         if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.cpf) && !isEmpty($scope.desarquivo.motivo)) {
-            console.log($scope.desarquivo);
-            alert("Desarquivado");
-            $scope.desarquivo = {}
+            console.log("clicado");
+            var promise = processoService.setDesarquivo(obj);
+            promise
+                .then(function(){
+                    alert("Desarquivado");
+                    $scope.desarquivo = {}
+                })
+                .catch(function(err){
+                    console.log(err);
+                console.log(obj);
+                });
+            
+            
         }else{
             alert("Preencha todos os campos!");
         }
