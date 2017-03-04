@@ -16,13 +16,20 @@ angular.module('app', ['ngCordova'])
     }
     
     var setDesarquivo = function(obj){
+        console.log(obj);
         return $http.post('https://credenciais.herokuapp.com/processos/itens', obj);
+    }
+
+    var setStatus= function(obj){
+        console.log(obj);
+        return $http.post('https://credenciais.herokuapp.com/processos/status', obj);
     }
     
     return {
         getProcesso: getProcesso,
         setProcesso: setProcesso,
-        setDesarquivo: setDesarquivo
+        setDesarquivo: setDesarquivo,
+        setStatus: setStatus
     }
 
 
@@ -272,6 +279,12 @@ $scope.processo = {}
                     $scope.desarquivo.etiqueta = "Inexistente"
                 }else{
                     $scope.desarquivo.etiqueta = array[0].etiqueta;
+                    if(array[0].status){
+                        $scope.desarquivo.status = "Arquivado";
+                    }else{
+                        $scope.desarquivo.status = "Desarquivado";
+                    }
+                    
                 }
             })
         
@@ -282,20 +295,43 @@ $scope.processo = {}
     }
     
     $scope.desarquivar = function(obj){
+        var movimento = {};
+        movimento.numero = $scope.desarquivo.numero; 
+        movimento.status =  false;
         obj['data'] = " ";
         obj['valor'] = 25000;
-        if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.cpf) && !isEmpty($scope.desarquivo.motivo)) {
-            console.log("clicado");
+        var msg = "Desarquivado";
+        if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.cpf) && !isEmpty($scope.desarquivo.motivo) && $scope.desarquivo.motivo !== "selecione ...") {
+            var msg = "Desarquivado";
+            movimento.status = false;
+
+
+            if($scope.desarquivo.motivo === "ARQUIVAR"){
+                movimento.status = true; //seta o valor da variável de status de posição de arquivo
+                msg = "Arquivado";
+            }
+
+            console.log(movimento);
+            
+
             var promise = processoService.setDesarquivo(obj);
             promise
                 .then(function(){
-                    alert("Desarquivado");
+                    
+                    var status = processoService.setStatus(movimento);
+                    status.then(function(){
+                    alert(msg);
                     $scope.desarquivo = {}
+                    }).catch(function(err){
+                        console.log(err);
+                    })
+                   
                 })
                 .catch(function(err){
                     console.log(err);
-                console.log(obj);
                 });
+
+            
             
             
         }else{
