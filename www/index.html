@@ -169,14 +169,24 @@
                         <label class="narrow-control" for="txt-processo"></label>
                         <input class="wide-control form-control default" type="text" placeholder="processo" maxlength="14" ng-model="desarquivo.numero" id="txt-processo" ng-blur="buscar(desarquivo.numero)">
                     </div>
+
                     <div class="table-thing widget uib_w_25 d-margins input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
                         <label class="narrow-control" for="txt-etiqueta"></label>
                         <input class="wide-control form-control default" type="text" placeholder="etiqueta" id="txt-etiqueta" ng-model="desarquivo.etiqueta">
                     </div>
-                    <div class="table-thing widget uib_w_27 d-margins input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+
+                    <div class="table-thing widget uib_w_27 input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
                         <label class="narrow-control" for="txt-status"></label>
                         <input class="wide-control form-control default" type="text" placeholder="status" id="txt-status" ng-model="desarquivo.status">
                     </div>
+
+                    <button class="btn widget uib_w_28 input-margins btn-default" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-verMovimentação" ng-click="mostrarMovimento()"><i class="glyphicon glyphicon-eye-open button-icon-top" data-position="top"></i>
+                    </button>
+
+                    <div class="input-margins" ng-repeat="movimento in arrayMovimento" ng-class-odd="'odd'" ng-class-even="'even'" ng-show="mostrar">
+                        <div ng-include="listar"></div>
+                    </div>
+
                     <div class="table-thing widget uib_w_20 input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
                         <label class="narrow-control" for="txt-cpf"></label>
                         <input class="wide-control form-control default" type="text" placeholder="CPF do solicitante" ng-model="desarquivo.cpf" ng-blur="testaCPF()" maxlength="11" id="txt-cpf">

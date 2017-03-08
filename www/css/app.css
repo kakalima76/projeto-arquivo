@@ -42,3 +42,13 @@ body {
     background: white ;
     color: black ;
 }
+
+
+.odd{
+  background-color: #FFA500;
+  color: #607B8B;
+}
+.even{
+  background-color: #607B8B;
+  color: #FFA500;
+}

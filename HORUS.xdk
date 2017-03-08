@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-ad-project/sample.zip",
       "projectGuid": "8c72559b-dce4-4d9a-8665-37153047400c",
-      "lastModifiedDate": 1488172910329,
+      "lastModifiedDate": 1488943019446,
       "creationDate": 1488162778937
     },
     "XDK-app-designer": "true",
@@ -76,7 +76,8 @@
         "gitref": "",
         "name": "Splashscreen",
         "description": "Cordova Splashscreen Plugin",
-        "checksum": "47137083"
+        "checksum": "47137083",
+        "cordovaVersion": ">=3.0.0"
       },
       {
         "id": "phonegap-plugin-barcodescanner",
@@ -101,6 +102,27 @@
         "description": "You can use the BarcodeScanner plugin to scan different types of barcodes (using the device's camera) and get the metadata encoded in them for processing within your application.",
         "data": {},
         "dependedBy": []
+      },
+      {
+        "id": "cordova-plugin-printer",
+        "name": "Printer",
+        "version": "0.7.3",
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-printer",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/cordova-plugin-printer",
+        "selectedState": "Included",
+        "checksum": "cd8be1f3",
+        "dependsOn": [],
+        "topLevel": true,
+        "cordovaVersion": ">=3.0.0",
+        "author": "Sebastián Katzer",
+        "permissions": {},
+        "description": "Prints HTML documents",
+        "data": {},
+        "dependedBy": [],
+        "custom": "true"
       }
     ],
     "buildConfigurations": {
@@ -134,8 +156,90 @@
           ],
           "navigation": []
         },
-        "icons_": [],
-        "splashes_": [],
+        "icons_": [
+          {
+            "density": "mdpi",
+            "relPath": "package-assets/48.png",
+            "width": 48,
+            "height": 48
+          },
+          {
+            "density": "ldpi",
+            "relPath": "package-assets/36.png",
+            "width": 36,
+            "height": 36
+          },
+          {
+            "density": "hdpi",
+            "relPath": "package-assets/72.png",
+            "width": 72,
+            "height": 72
+          },
+          {
+            "density": "xhdpi",
+            "relPath": "package-assets/96.png",
+            "width": 96,
+            "height": 96
+          }
+        ],
+        "splashes_": [
+          {
+            "relPath": "package-assets/320x426.png",
+            "density": "ldpi",
+            "height": 426,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "package-assets/320x470.png",
+            "density": "mdpi",
+            "height": 470,
+            "width": 320,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "package-assets/480x640.png",
+            "density": "hdpi",
+            "height": 640,
+            "width": 480,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "package-assets/720x960.png",
+            "density": "xhdpi",
+            "height": 960,
+            "width": 720,
+            "orientation": "portrait"
+          },
+          {
+            "relPath": "package-assets/320x426-landscape.png",
+            "density": "ldpi",
+            "height": 320,
+            "width": 426,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "package-assets/320x470-landscape.png",
+            "density": "mdpi",
+            "height": 320,
+            "width": 470,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "package-assets/480x640-landscape.png",
+            "density": "hdpi",
+            "height": 480,
+            "width": 640,
+            "orientation": "landscape"
+          },
+          {
+            "relPath": "package-assets/720x960-landscape.png",
+            "density": "xhdpi",
+            "height": 720,
+            "width": 960,
+            "orientation": "landscape"
+          }
+        ],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "6.2.0",
