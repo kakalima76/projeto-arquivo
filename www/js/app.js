@@ -15,6 +15,10 @@ angular.module('app', ['ngCordova'])
         return $http.post('https://credenciais.herokuapp.com/processos', obj);
     }
     
+     var getBuscaData = function(obj){
+        return $http.post('https://credenciais.herokuapp.com/processos/datas', obj);
+    }
+    
     var setDesarquivo = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/itens', obj);
     }
@@ -26,6 +30,7 @@ angular.module('app', ['ngCordova'])
     return {
         getProcesso: getProcesso,
         setProcesso: setProcesso,
+        getBuscaData: getBuscaData,
         setDesarquivo: setDesarquivo,
         setStatus: setStatus
     }
@@ -251,11 +256,19 @@ $scope.processo = {}
     }
     
     
+     $scope.clean = function(){
+        $scope.processo = {}
+    }
+    
+    
     
 }])   
  
 
 .controller("desarquivarController", ["$scope", "cpfService", "processoService", 'loginService', function($scope, cpfService, processoService, loginService){
+    var flag = false;
+    $scope.mostrarMatricula = false;
+    $scope.mostrarCpf = false;
     $scope.mostrar = false;
     var contador  = 0;
     $scope.desarquivo = {}
@@ -286,15 +299,19 @@ $scope.processo = {}
             
                 if(isEmpty(array[0])){
                     $scope.desarquivo.etiqueta = "Inexistente"
+                    $scope.arrayMovimento = []
                 }else{
 
                     $scope.desarquivo.etiqueta = array[0].etiqueta;
+                    $scope.arrayMovimento = array[0].movimento;
+                    $scope.arrayMovimento.forEach(function(value){
+                        value.data = value.data.substring(8,10) + '/' + value.data.substring(5,7) + '/' + value.data.substring(0,4);
+                    });
+                    
                     if(array[0].status){
                         $scope.desarquivo.status = "Arquivado";
-                        $scope.arrayMovimento = array[0].movimento;
                     }else{
                         $scope.desarquivo.status = "Desarquivado";
-                        $scope.arrayMovimento = array[0].movimento;
                     }
                     
                 }
@@ -306,24 +323,50 @@ $scope.processo = {}
         
     }
     
+    
+    $scope.optar = function(option){
+ 
+        if(option === "MATRÍCULA"){
+            $scope.mostrarCpf = false;
+            $scope.mostrarMatricula = true;
+        }else{
+            $scope.mostrarMatricula = false;
+            $scope.mostrarCpf = true;
+        }
+        
+    }
+    
     $scope.desarquivar = function(obj){
         var movimento = {};
         movimento.numero = $scope.desarquivo.numero; 
-        movimento.status =  false;
+        movimento.status =  false;    
+        
         obj['data'] = " ";
-        obj['valor'] = 25000;
+        
         var usuario = loginService.usuario();
         obj['servidor'] = usuario.name + ' - ' + usuario.matricula;
         var msg = "Desarquivado";
-        if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.cpf) && !isEmpty($scope.desarquivo.motivo) && $scope.desarquivo.motivo !== "selecione ...") {
+        if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.motivo) && (!isEmpty(obj['cpf']) || !isEmpty(obj['matricula']))) {
             var msg = "Desarquivado";
             movimento.status = false;
-
 
             if($scope.desarquivo.motivo === "ARQUIVAR"){
                 movimento.status = true; //seta o valor da variável de status de posição de arquivo
                 msg = "Arquivado";
             }
+            
+            if(obj['cpf']){
+                    obj['matricula'] = '';
+                    obj['documento'] = 'CPF: ' + obj['cpf'];
+                    obj['valor'] = 10000;
+            }else{
+                    obj['cpf'] = '';
+                    obj['documento'] = 'Mat: ' + obj['matricula']
+                    obj['valor'] = 0;
+            }
+            
+  
+            
             
 
             var promise = processoService.setDesarquivo(obj);
@@ -335,6 +378,7 @@ $scope.processo = {}
                     alert(msg);
                     $scope.desarquivo = {}
                     $scope.arrayMovimento = []
+                    
                     }).catch(function(err){
                         console.log(err);
                     })
@@ -343,9 +387,6 @@ $scope.processo = {}
                 .catch(function(err){
                     console.log(err);
                 });
-
-            
-            
             
         }else{
             alert("Preencha todos os campos!");
@@ -360,6 +401,50 @@ $scope.processo = {}
         }
         
         contador++;
+    }
+    
+    
+    $scope.clean = function(){
+        $scope.desarquivo = {};
+        $scope.arrayMovimento = []
+    }
+   
+    
+    
+    
+}])
+
+.controller("buscaController", ["$scope", "processoService", function($scope, processoService){
+    $scope.buscar = 'templates/sub_data.html';
+    $scope.arrayArquivo = []
+
+
+    $scope.calcular = function(obj){
+        $scope.arrayArquivo = []
+
+        var promise = processoService.getBuscaData(obj);
+        promise.
+            then(function(data){
+            $scope.arrayArquivo = data.data;
+            
+            $scope.arrayArquivo.forEach(function(value){
+               value.arquivo = value.arquivo.substring(8,10) + '/' + value.arquivo.substring(5,7) + '/' + value.arquivo.substring(0,4);
+            });
+            
+            
+            if($scope.arrayArquivo.length <= 1){
+                $scope.quantidade = $scope.arrayArquivo.length + ' PROCESSO';
+            }else{
+                $scope.quantidade = $scope.arrayArquivo.length + ' PROCESSOS';
+            }
+            
+        })
+    }
+    
+    $scope.clean = function(){
+        $scope.tempo = {}
+        $scope.arrayArquivo = []
+        $scope.quantidade = null;
     }
 }]);
 
