@@ -10,14 +10,16 @@ angular.module('app', ['ngCordova'])
     var getProcesso = function(value){
         return $http.get('https://credenciais.herokuapp.com/processos')
     }
+
     
     var setProcesso = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos', obj);
     }
     
-     var getBuscaData = function(obj){
+    var getBuscaData = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/datas', obj);
     }
+
     
     var setDesarquivo = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/itens', obj);
@@ -26,13 +28,22 @@ angular.module('app', ['ngCordova'])
     var setStatus= function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/status', obj);
     }
+
+    var remove= function(obj){
+        return $http.post('https://credenciais.herokuapp.com/processos/removeArquivo', obj);
+    }
+
+
+
+
     
     return {
         getProcesso: getProcesso,
         setProcesso: setProcesso,
         getBuscaData: getBuscaData,
         setDesarquivo: setDesarquivo,
-        setStatus: setStatus
+        setStatus: setStatus,
+        remove: remove
     }
 
 
@@ -150,10 +161,11 @@ $scope.processo = {}
     }
     
     function testaCampos(){
-        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.etiqueta)){
+        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.etiqueta) && !isEmpty($scope.processo.natureza)){
             return true;
         }else{
             alert("Preencha todos os campos!");
+            console.log("Preencha todos os campos!");
         }
         
         return false;
@@ -419,16 +431,16 @@ $scope.processo = {}
     $scope.arrayArquivo = []
 
 
-    $scope.calcular = function(obj){
-        $scope.arrayArquivo = []
+    var popula = function(value){
+       $scope.arrayArquivo = []
 
-        var promise = processoService.getBuscaData(obj);
+        var promise = processoService.getBuscaData(value);
         promise.
             then(function(data){
             $scope.arrayArquivo = data.data;
             
             $scope.arrayArquivo.forEach(function(value){
-               value.arquivo = value.arquivo.substring(8,10) + '/' + value.arquivo.substring(5,7) + '/' + value.arquivo.substring(0,4);
+               value.arquivoStr = value.arquivo.substring(8,10) + '/' + value.arquivo.substring(5,7) + '/' + value.arquivo.substring(0,4);
             });
             
             
@@ -439,6 +451,11 @@ $scope.processo = {}
             }
             
         })
+    } 
+    
+    
+    $scope.calcular = function(obj){
+       popula(obj);
     }
     
     $scope.clean = function(){
@@ -446,6 +463,21 @@ $scope.processo = {}
         $scope.arrayArquivo = []
         $scope.quantidade = null;
     }
+
+    $scope.remover = function(obj){
+        
+        var promise = processoService.remove(obj);
+        promise
+            .then(function(data){
+                $scope.quantidade = 'Busque novamente para atualizar';
+                $scope.arrayArquivo = [];  
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+              
+    }
+    
 }]);
 
 

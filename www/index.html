@@ -129,6 +129,14 @@
                         <label class="narrow-control"></label>
                         <input class="wide-control form-control default" type="number" placeholder="pasta" ng-model="processo.pasta">
                     </div>
+                    <div class="table-thing widget uib_w_43 input-margins label-styles" data-uib="twitter%20bootstrap/select" data-ver="1">
+                        <label class="narrow-control label-top-left">TIPO</label>
+                        <select class="wide-control form-control default" id="select-natureza" ng-model="processo.natureza">
+                            <option>permanente</option>
+                            <option>eventual</option>
+                            <option>transitoria</option>
+                        </select>
+                    </div>
                     <button class="btn widget uib_w_15 input-margins btn-lg btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" ng-click="scanner()" id="btn-open-scanner"><i class="glyphicon glyphicon-barcode button-icon-top" data-position="top"></i> 
                     </button>
                     <div class="table-thing widget uib_w_16 d-margins input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
@@ -259,6 +267,14 @@
                         <label class="narrow-control label-top-left">ANO</label>
                         <input class="wide-control form-control default" type="number" placeholder="ano" ng-model="tempo.ano">
                     </div>
+                    <div class="table-thing widget uib_w_44 d-margins label-styles" data-uib="twitter%20bootstrap/select" data-ver="1">
+                        <label class="narrow-control label-top-left">TIPO</label>
+                        <select class="wide-control form-control default" ng-model="tempo.natureza" id="select-tipo-busca">
+                            <option>permanente</option>
+                            <option>eventual</option>
+                            <option>transitoria</option>
+                        </select>
+                    </div>
                     <button class="btn widget uib_w_38 input-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-buscar-processos" ng-click="calcular(tempo)"><i class="glyphicon glyphicon-search button-icon-top" data-position="top"></i> 
                     </button>
 
@@ -272,6 +288,8 @@
                         <div ng-include="buscar"></div>
                     </div>
 
+                    <button class="btn widget uib_w_41 d-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-clean-arquivo" ng-click="clean()"><i class="glyphicon glyphicon-trash button-icon-top" data-position="top"></i> 
+                    </button>
                 </div>
 
                 <!--FOOTER-->
@@ -283,8 +301,7 @@
                     </div>
 
                     <div class="widget-container content-area horiz-area wrapping-col left">
-                        <button class="btn widget uib_w_41 d-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-clean-arquivo" ng-click="clean()"><i class="glyphicon glyphicon-trash button-icon-left" data-position="left"></i>
-                        </button>
+
                     </div>
                     <div class="widget-container content-area horiz-area wrapping-col right"></div>
                 </div>
