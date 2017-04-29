@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "jsapp/template-blank-cordova-ad-project/sample.zip",
       "projectGuid": "8c72559b-dce4-4d9a-8665-37153047400c",
-      "lastModifiedDate": 1488943019446,
+      "lastModifiedDate": 1489546692461,
       "creationDate": 1488162778937
     },
     "XDK-app-designer": "true",
@@ -134,7 +134,8 @@
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "21",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": true,
+          "Fullscreen": false
         },
         "isActive_": true,
         "certificateId_": "q5TTqJgig0Gr_CeHIoV5Dw2",
@@ -154,7 +155,8 @@
             "geo:*",
             "market:*"
           ],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [
           {
@@ -244,9 +246,9 @@
         "excludedLibraries_": "",
         "cordovaCLIVersion_": "6.2.0",
         "crosswalkVersion_": "19",
-        "appVersion_": "0.0.1",
-        "appAuthor_": "Intel XDK",
-        "appDescription_": "Template to develop a Cordova mobile web app using the App Designer UI editor.",
+        "appVersion_": "1.0.0",
+        "appAuthor_": "Nieraldo Lima",
+        "appDescription_": "App para controle de arquivos",
         "appVersionCode_": "1",
         "signed_": true
       },
@@ -327,7 +329,7 @@
         "runtime_": "W3C",
         "name_": "WebApp",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "certificateId_": "",
         "appName_": "blank-cordova-ad",
         "appID_": "not.yet.specified",

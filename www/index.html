@@ -129,14 +129,11 @@
                         <label class="narrow-control"></label>
                         <input class="wide-control form-control default" type="number" placeholder="pasta" ng-model="processo.pasta">
                     </div>
-                    <div class="table-thing widget uib_w_43 input-margins label-styles" data-uib="twitter%20bootstrap/select" data-ver="1">
-                        <label class="narrow-control label-top-left">TIPO</label>
-                        <select class="wide-control form-control default" id="select-natureza" ng-model="processo.natureza">
-                            <option>permanente</option>
-                            <option>eventual</option>
-                            <option>transitoria</option>
-                        </select>
+                    <div class="table-thing widget uib_w_45 input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
+                        <label class="narrow-control" for="input-codigo"></label>
+                        <input class="wide-control form-control default" type="text" placeholder="código" id="input-codigo" ng-model="processo.codigo">
                     </div>
+
                     <button class="btn widget uib_w_15 input-margins btn-lg btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" ng-click="scanner()" id="btn-open-scanner"><i class="glyphicon glyphicon-barcode button-icon-top" data-position="top"></i> 
                     </button>
                     <div class="table-thing widget uib_w_16 d-margins input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">

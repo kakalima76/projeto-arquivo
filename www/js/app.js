@@ -15,6 +15,7 @@ angular.module('app', ['ngCordova'])
     var setProcesso = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos', obj);
     }
+
     
     var getBuscaData = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/datas', obj);
@@ -109,10 +110,120 @@ angular.module('app', ['ngCordova'])
 }])
 
 
-.controller("loginController", ["$scope", "loginService", "$window", function($scope, loginService, $window){
+.service("codigosService", [function(){
+
+    var codigos = 
+
+    [
+                                
+        {   "CAP":  23067   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23068   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23001   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23055   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23002   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23003   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23004   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23005   ,"GAC":  1   ,"GAI":     20  }   ,
+        {   "CAP":  23006   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23007   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23008   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23009   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23056   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23069   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23010   ,"GAC":  1   ,"GAI":     1   }   ,
+        {   "CAP":  23054   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23013   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23014   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23057   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23063   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23015   ,"GAC":  1   ,"GAI":     20  }   ,
+        {   "CAP":  23018   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23016   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23017   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23019   ,"GAC":  0   ,"GAI":     0   }   ,
+        {   "CAP":  23031   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23026   ,"GAC":  1   ,"GAI":     20  }   ,
+        {   "CAP":  23027   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23028   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23029   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23030   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23066   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23032   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23060   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23033   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23065   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23035   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23100   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23037   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23038   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23039   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23040   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23041   ,"GAC":  1   ,"GAI":     20  }   ,
+        {   "CAP":  23042   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23043   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23044   ,"GAC":  1   ,"GAI":     20  }   ,
+        {   "CAP":  23058   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23062   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23045   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23047   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23046   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23048   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23049   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23050   ,"GAC":  2   ,"GAI":     13  }   ,
+        {   "CAP":  23051   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23052   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23070   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23061   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23064   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  90000   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  23036   ,"GAC":  1   ,"GAI":     5   }   ,
+        {   "CAP":  90001   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90002   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90003   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90004   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90005   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90006   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90007   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90008   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90009   ,"GAC":  5   ,"GAI":     0   }   ,
+        {   "CAP":  90010   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90011   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90012   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90013   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90014   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90015   ,"GAC":  2   ,"GAI":     0   }   ,
+        {   "CAP":  90016   ,"GAC":  1   ,"GAI":     0   }   ,
+        {   "CAP":  90017   ,"GAC":  1   ,"GAI":     0   }   ,
+        {   "CAP":  90018   ,"GAC":  5   ,"GAI":     0   }            
+    ]
+
+    var testar =  function(codigo){
+        var filtro = function(value){
+        return value.CAP === codigo;
+        }
+
+        var array = codigos.filter(filtro);
+
+        return array[0];
+
+    }
+
+
+   
+
+    return {
+        testar: testar
+    }
+
+}])
+
+
+.controller("loginController", ["codigosService", "$scope", "loginService", "$window", function(codigosService, $scope, loginService, $window){
 	$scope.showError = true;    
     $scope.acesso = {}
 	
+    
+
 	$scope.logar = function(obj){
 		var user = {}
         
@@ -139,7 +250,7 @@ angular.module('app', ['ngCordova'])
 
 }])
 
-.controller("arquivarController", ["$scope", "$cordovaBarcodeScanner", "processoService", "$cordovaPrinter", function($scope, $cordovaBarcodeScanner, processoService, $cordovaPrinter) {
+.controller("arquivarController", ["codigosService", "$scope", "$cordovaBarcodeScanner", "processoService", "$cordovaPrinter", "loginService", function(codigosService, $scope, $cordovaBarcodeScanner, processoService, $cordovaPrinter, loginService) {
 
 $scope.processo = {}
 
@@ -161,7 +272,7 @@ $scope.processo = {}
     }
     
     function testaCampos(){
-        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.etiqueta) && !isEmpty($scope.processo.natureza)){
+        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.etiqueta) && !isEmpty($scope.processo.codigo)){
             return true;
         }else{
             alert("Preencha todos os campos!");
@@ -172,7 +283,7 @@ $scope.processo = {}
     }
     
     function testaGerarEtiqueta(){
-        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.numero)){
+        if(!isEmpty($scope.processo.corredor) && !isEmpty($scope.processo.estante) && !isEmpty($scope.processo.prateleira) && !isEmpty($scope.processo.pasta) && !isEmpty($scope.processo.numero) && !isEmpty($scope.processo.codigo)){
             return true;
         }else{
             alert("Preencha todos os campos!");
@@ -183,9 +294,27 @@ $scope.processo = {}
 
     $scope.gerar = function(){    
         var count = 0;
-        var printerAvail = $cordovaPrinter.isAvailable()     
+        var printerAvail = $cordovaPrinter.isAvailable()   
+
+        console.log();
         
         if(testaGerarEtiqueta()){
+
+
+            // Código para inserir as datas limites no objeto processo
+
+
+            var datasLimites = function(){
+                var obj = codigosService.testar(parseInt($scope.processo.codigo));
+                $scope.processo.GAC = obj.GAC
+                $scope.processo.GAI = obj.GAI
+                console.log(loginService.usuario().posicao);
+                $scope.processo.local = loginService.usuario().posicao;
+
+            }
+
+            datasLimites();
+
             
             
             function filtrar(value){
@@ -265,6 +394,8 @@ $scope.processo = {}
                 })   
             
         } 
+
+       
     }
     
     
