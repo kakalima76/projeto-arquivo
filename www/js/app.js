@@ -1,6 +1,6 @@
-document.addEventListener("deviceready",function(){
+/*document.addEventListener("deviceready",function(){
   navigator.splashscreen.hide();
-});
+});*/
 
 angular.module('app', ['ngCordova'])
 
@@ -8,31 +8,31 @@ angular.module('app', ['ngCordova'])
 .service('processoService', ['$http', '$window', function($http, $window){
 
     var getProcesso = function(value){
-        return $http.get('https://credenciais.herokuapp.com/processos')
-    }
+        return $http.get('https://credenciais.herokuapp.com/processos');
+    };
 
     
     var setProcesso = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos', obj);
-    }
+    };
 
     
     var getBuscaData = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/datas', obj);
-    }
+    };
 
     
     var setDesarquivo = function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/itens', obj);
-    }
+    };
 
     var setStatus= function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/status', obj);
-    }
+    };
 
     var remove= function(obj){
         return $http.post('https://credenciais.herokuapp.com/processos/removeArquivo', obj);
-    }
+    };
 
 
 
@@ -45,7 +45,7 @@ angular.module('app', ['ngCordova'])
         setDesarquivo: setDesarquivo,
         setStatus: setStatus,
         remove: remove
-    }
+    };
 
 
 }])
@@ -56,27 +56,27 @@ angular.module('app', ['ngCordova'])
 
 		var logar = function(obj){
 			return $http.post('https://credenciais.herokuapp.com/login', obj);
-		}
+		};
 
 		var registrar = function(obj){
 			return $http.post('https://credenciais.herokuapp.com/requestRegister', obj);
-		}
+		};
 
 		var trocar = function(obj){
 			return $http.post('https://credenciais.herokuapp.com/requestNewPassword', obj);
-		}
+		};
 
 		var usuario = function(){
 			var user = JSON.parse($window.atob($window.localStorage['token'].split('.')[1]));
 			return user;
-		}
+		};
 
 		return {
 			logar: logar,
 			registrar: registrar,
 			trocar: trocar,
 			usuario: usuario
-		}
+		};
 
 	}])
 
@@ -88,24 +88,24 @@ angular.module('app', ['ngCordova'])
         Soma = 0;
         if (strCPF == "00000000000") return false;
 
-        for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+        for (var i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
         Resto = (Soma * 10) % 11;
 
         if ((Resto == 10) || (Resto == 11))  Resto = 0;
         if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
 
         Soma = 0;
-        for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+        for (var j = 1; j <= 10; j++) Soma = Soma + parseInt(strCPF.substring(j-1, j)) * (12 - j);
         Resto = (Soma * 10) % 11;
 
         if ((Resto == 10) || (Resto == 11))  Resto = 0;
         if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
         return true;
-    }
+    };
 
     return {
         cpf: cpf
-    }
+    };
 
 }])
 
@@ -114,118 +114,114 @@ angular.module('app', ['ngCordova'])
 
     var codigos = 
 
-    [
-                                
-        {   "CAP":  23067   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23068   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23001   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23055   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23002   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23003   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23004   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23005   ,"GAC":  1   ,"GAI":     20  }   ,
-        {   "CAP":  23006   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23007   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23008   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23009   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23056   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23069   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23010   ,"GAC":  1   ,"GAI":     1   }   ,
-        {   "CAP":  23054   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23013   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23014   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23057   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23063   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23015   ,"GAC":  1   ,"GAI":     20  }   ,
-        {   "CAP":  23018   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23016   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23017   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23019   ,"GAC":  0   ,"GAI":     0   }   ,
-        {   "CAP":  23031   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23026   ,"GAC":  1   ,"GAI":     20  }   ,
-        {   "CAP":  23027   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23028   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23029   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23030   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23066   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23032   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23060   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23033   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23065   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23035   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23100   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23037   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23038   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23039   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23040   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23041   ,"GAC":  1   ,"GAI":     20  }   ,
-        {   "CAP":  23042   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23043   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23044   ,"GAC":  1   ,"GAI":     20  }   ,
-        {   "CAP":  23058   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23062   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23045   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23047   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23046   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23048   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23049   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23050   ,"GAC":  2   ,"GAI":     13  }   ,
-        {   "CAP":  23051   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23052   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23070   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23061   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23064   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  90000   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  23036   ,"GAC":  1   ,"GAI":     5   }   ,
-        {   "CAP":  90001   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90002   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90003   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90004   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90005   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90006   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90007   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90008   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90009   ,"GAC":  5   ,"GAI":     0   }   ,
-        {   "CAP":  90010   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90011   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90012   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90013   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90014   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90015   ,"GAC":  2   ,"GAI":     0   }   ,
-        {   "CAP":  90016   ,"GAC":  1   ,"GAI":     0   }   ,
-        {   "CAP":  90017   ,"GAC":  1   ,"GAI":     0   }   ,
-        {   "CAP":  90018   ,"GAC":  5   ,"GAI":     0   }            
-    ]
+    [                                
+        {   "CAP":  23067   ,   "ASSUNTO":  "ISS - DIEF"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23068   ,   "ASSUNTO":  "ISS – 2º via de declaração"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23001   ,   "ASSUNTO":  "ISS – Ação Ordinária"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23055   ,   "ASSUNTO":  "ISS – Alegação de Pagamento"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23002   ,   "ASSUNTO":  "ISS – Apropriação" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23003   ,   "ASSUNTO":  "ISS – Apropriação de Pagamento"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23004   ,   "ASSUNTO":  "ISS – Aproveitamento de Crédito"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23005   ,   "ASSUNTO":  "ISS – Auto de Infração"    ,   "GAC":  1   ,   "GAI":  20  ,   "D":    true    ,   "M":    true    ,   "E":    true    }   ,
+        {   "CAP":  23006   ,   "ASSUNTO":  "ISS – Autorização Transitória" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23007   ,   "ASSUNTO":  "ISS – Baixa de Alvará" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23008   ,   "ASSUNTO":  "ISS – Baixa de Inscrição"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23009   ,   "ASSUNTO":  "ISS – Cancelamento de estimativa"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23056   ,   "ASSUNTO":  "ISS – Centralização de Escrita Fiscal" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23069   ,   "ASSUNTO":  "ISS – CEPOM"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23010   ,   "ASSUNTO":  "ISS - Certidão"    ,   "GAC":  1   ,   "GAI":  1   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23054   ,   "ASSUNTO":  "ISS – Comprovação de Pagamento"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23013   ,   "ASSUNTO":  "ISS – Confirmação de Guia" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23014   ,   "ASSUNTO":  "ISS – Consulta"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23057   ,   "ASSUNTO":  "ISS – Denuncia de Terceiros"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23063   ,   "ASSUNTO":  "ISS – Denuncia Espontânea" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23015   ,   "ASSUNTO":  "ISS – Depósito"    ,   "GAC":  1   ,   "GAI":  20  ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23018   ,   "ASSUNTO":  "ISS – Extrato de Livros Fiscais"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23016   ,   "ASSUNTO":  "ISS – Extravio de Documentos Fiscais"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23017   ,   "ASSUNTO":  "ISS – Extravio de Livros Fiscais"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23019   ,   "ASSUNTO":  "ISS – Falência"    ,   "GAC":  0   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23031   ,   "ASSUNTO":  "ISS – Incentivos fiscais – Comunicação da RIOTUR"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23026   ,   "ASSUNTO":  "ISS – Inclusão Predial"    ,   "GAC":  1   ,   "GAI":  20  ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23027   ,   "ASSUNTO":  "ISS – Informação Junta Comercial"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23028   ,   "ASSUNTO":  "ISS – Informação Outros Órgãos"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23029   ,   "ASSUNTO":  "ISS- Informação Poder Judiciário"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23030   ,   "ASSUNTO":  "ISS – Informação sobre Pagamento"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23066   ,   "ASSUNTO":  "ISS -Inscrição"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23032   ,   "ASSUNTO":  "ISS – Mandado de Segurança"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23060   ,   "ASSUNTO":  "ISS – Máquina Registradora-"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23033   ,   "ASSUNTO":  "ISS - Medida Cautelar" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23065   ,   "ASSUNTO":  "ISS Microempresa"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23035   ,   "ASSUNTO":  "ISS - Microempresa Impugnação de Desenquadramento" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23100   ,   "ASSUNTO":  "ISS – Nota Carioca – Pagamento Sorteio"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23037   ,   "ASSUNTO":  "ISS – Nota de Débito"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23038   ,   "ASSUNTO":  "ISS – Nota de Débito - Cancelamento"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23039   ,   "ASSUNTO":  "ISS – Nota de Débito - pagamento"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  23040   ,   "ASSUNTO":  "ISS – Nota de Débito - Revisão"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23041   ,   "ASSUNTO":  "ISS - Nota de Lançamento"  ,   "GAC":  1   ,   "GAI":  20  ,   "D":    true    ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23042   ,   "ASSUNTO":  "ISS – Paralisação Definitiva de Atividades"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23043   ,   "ASSUNTO":  "ISS – Paralisação Temporária de Atividades"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23044   ,   "ASSUNTO":  "ISS- Parcelamento" ,   "GAC":  1   ,   "GAI":  20  ,   "D":    true    ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23058   ,   "ASSUNTO":  "ISS - Portaria de Estimativa (enquadramento)"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23062   ,   "ASSUNTO":  "ISS - Portaria de Estimativa/Revisão"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23045   ,   "ASSUNTO":  "ISS Reconhecimento de Imunidade"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23047   ,   "ASSUNTO":  "ISS – Reconhecimento de Isenção"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23046   ,   "ASSUNTO":  "ISS- Reconhecimento de não Incidência" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23048   ,   "ASSUNTO":  "ISS - Regime Especial" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23049   ,   "ASSUNTO":  "ISS – Regime Especial" ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23050   ,   "ASSUNTO":  "ISS - Remissâo"    ,   "GAC":  2   ,   "GAI":  13  ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23051   ,   "ASSUNTO":  "ISS – Requisição de Informação"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23052   ,   "ASSUNTO":  "ISS- Restituição"  ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23070   ,   "ASSUNTO":  "ISS - Simples Nacional"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23061   ,   "ASSUNTO":  "ISS - Transação"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23064   ,   "ASSUNTO":  "ISS (CITAR)"   ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90000   ,   "ASSUNTO":  "ISS - DARM"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  23036   ,   "ASSUNTO":  "ISS – Microempresa Ultrapassagem do Limite"    ,   "GAC":  1   ,   "GAI":  5   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90001   ,   "ASSUNTO":  "AIDF"  ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90002   ,   "ASSUNTO":  "Auto de infração"  ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    false   }   ,
+        {   "CAP":  90003   ,   "ASSUNTO":  "Nota de Lançamento"    ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90004   ,   "ASSUNTO":  "Relatório de processamento de dados"   ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90005   ,   "ASSUNTO":  "Relatório de regime especial"  ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90006   ,   "ASSUNTO":  "Comunicação de paralisação."   ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90007   ,   "ASSUNTO":  "Declaração da Lei nº 2.590/97" ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90008   ,   "ASSUNTO":  "Declaração de microempresa"    ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90009   ,   "ASSUNTO":  "Ficha de campo."   ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90010   ,   "ASSUNTO":  "Intimação fiscal." ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90011   ,   "ASSUNTO":  "Memorando de baixa."   ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90012   ,   "ASSUNTO":  "Memorando de exclusão de atividades"   ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90013   ,   "ASSUNTO":  "Termo de arrecadação/ apreensão"   ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90014   ,   "ASSUNTO":  "Memorando RACCS"   ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90015   ,   "ASSUNTO":  "Relação dos livros autenticados."  ,   "GAC":  2   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90016   ,   "ASSUNTO":  "Termo de inclusão."    ,   "GAC":  1   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90017   ,   "ASSUNTO":  "Formulário"    ,   "GAC":  1   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }   ,
+        {   "CAP":  90018   ,   "ASSUNTO":  "Diversos." ,   "GAC":  5   ,   "GAI":  0   ,   "D":    false   ,   "M":    false   ,   "E":    true    }          
+    ];
 
     var testar =  function(codigo){
         var filtro = function(value){
         return value.CAP === codigo;
-        }
+        };
 
         var array = codigos.filter(filtro);
 
         return array[0];
 
-    }
-
-
-   
+    };
 
     return {
         testar: testar
-    }
+    };
 
 }])
 
 
 .controller("loginController", ["codigosService", "$scope", "loginService", "$window", function(codigosService, $scope, loginService, $window){
 	$scope.showError = true;    
-    $scope.acesso = {}
+    $scope.acesso = {};
 	
     
 
 	$scope.logar = function(obj){
-		var user = {}
+		var user = {};
         
         
 		user['email'] = obj.user;
@@ -236,27 +232,27 @@ angular.module('app', ['ngCordova'])
 		promise.then(function(data){
 			if(data.status === 200){
 				$window.localStorage['token'] = data.data.token;
-				activate_page("#page-arquivar"); 
+				$window.activate_page("#page-arquivar"); 
 				return;
 			}
 			
-		})
+		});
 
 		promise.catch(function(err){
 			$scope.showError = true;
 			$scope.message = err.data.message;
-		})
-	}
+		});
+	};
 
 }])
 
 .controller("arquivarController", ["codigosService", "$scope", "$cordovaBarcodeScanner", "processoService", "$cordovaPrinter", "loginService", function(codigosService, $scope, $cordovaBarcodeScanner, processoService, $cordovaPrinter, loginService) {
 
-$scope.processo = {}
+$scope.processo = {};
 
     
     function isEmpty(val){
-    	return (val === undefined || val == null || val.length <= 0) ? true : false;
+    	return (val === undefined || val === null || val.length <= 0) ? true : false;
     }
 
     function formata(value){
@@ -276,7 +272,6 @@ $scope.processo = {}
             return true;
         }else{
             alert("Preencha todos os campos!");
-            console.log("Preencha todos os campos!");
         }
         
         return false;
@@ -294,7 +289,7 @@ $scope.processo = {}
 
     $scope.gerar = function(){    
         var count = 0;
-        var printerAvail = $cordovaPrinter.isAvailable()   
+        var printerAvail = $cordovaPrinter.isAvailable(); 
 
         console.log();
         
@@ -306,22 +301,24 @@ $scope.processo = {}
 
             var datasLimites = function(){
                 var obj = codigosService.testar(parseInt($scope.processo.codigo));
-                $scope.processo.GAC = obj.GAC
-                $scope.processo.GAI = obj.GAI
-                console.log(loginService.usuario().posicao);
+                $scope.processo.GAC = obj.GAC;
+                $scope.processo.GAI = obj.GAI;
+                $scope.processo.D = obj.D;
+                $scope.processo.M = obj.M;
+                $scope.processo.E = obj.E;
                 $scope.processo.local = loginService.usuario().posicao;
 
-            }
+            };
 
             datasLimites();
 
             
             
-            function filtrar(value){
-                return ((value.corredor === $scope.processo.corredor) && (value.estante === $scope.processo.estante) && (value.prateleira === $scope.processo.prateleira) && (value.pasta === $scope.processo.pasta))
-            }
+            var filtrar = function(value){
+                return ((value.corredor === $scope.processo.corredor) && (value.estante === $scope.processo.estante) && (value.prateleira === $scope.processo.prateleira) && (value.pasta === $scope.processo.pasta));
+            };
     
-            var arrayOrdem = []
+            var arrayOrdem = [];
             
             var promise = processoService.getProcesso();
             promise
@@ -333,7 +330,7 @@ $scope.processo = {}
                        arrayOrdem.push(value.ordem);
                    });
                 
-                arrayOrdem.sort(function(a, b){return b-a})
+                arrayOrdem.sort(function(a, b){return b-a;});
                 
                /* var printerAvail = $cordovaPrinter.isAvailable()*/
                 
@@ -348,19 +345,19 @@ $scope.processo = {}
                 }
                 
                 var doc = "<div>" +  $scope.processo.etiqueta + "</div>";
-                $cordovaPrinter.print(doc)
+                $cordovaPrinter.print(doc);
                 
                 
                 })
                 .catch(function(err){
-                    console.log(err);
-                })
+                    window.console.log(err);
+                });
              
            
         
         }
        
-    }
+    };
 
 
     $scope.scanner = function(){
@@ -375,7 +372,7 @@ $scope.processo = {}
             $scope.processo.numero = error;
             });
         }, false); 
-    }
+    };
     
     $scope.arquivar = function(obj){
 
@@ -391,17 +388,17 @@ $scope.processo = {}
                 })
                 .catch(function(err){
                    console.log(err);
-                })   
+                });  
             
         } 
 
        
-    }
+    };
     
     
      $scope.clean = function(){
-        $scope.processo = {}
-    }
+        $scope.processo = {};
+    };
     
     
     
@@ -414,7 +411,7 @@ $scope.processo = {}
     $scope.mostrarCpf = false;
     $scope.mostrar = false;
     var contador  = 0;
-    $scope.desarquivo = {}
+    $scope.desarquivo = {};
     $scope.arrayMovimento = [];
     $scope.listar = 'templates/sub_listar.html';
     $scope.testaCPF = function(){
@@ -422,10 +419,10 @@ $scope.processo = {}
             alert("CPF INVÁLIDO!!!");
             $scope.desarquivo.cpf = null;
         }
-    }
+    };
     
     function isEmpty(val){
-    	return (val === undefined || val == null || val.length <= 0) ? true : false;
+    	return (val === undefined || val === null || val.length <= 0) ? true : false;
     }
     
     function filtrar(value){
@@ -441,8 +438,8 @@ $scope.processo = {}
             var array = data.data.filter(filtrar);
             
                 if(isEmpty(array[0])){
-                    $scope.desarquivo.etiqueta = "Inexistente"
-                    $scope.arrayMovimento = []
+                    $scope.desarquivo.etiqueta = "Inexistente";
+                    $scope.arrayMovimento = [];
                 }else{
 
                     $scope.desarquivo.etiqueta = array[0].etiqueta;
@@ -462,9 +459,9 @@ $scope.processo = {}
         
             .catch(function(err){
                 console.log(err);
-            })
+            });
         
-    }
+    };
     
     
     $scope.optar = function(option){
@@ -477,7 +474,7 @@ $scope.processo = {}
             $scope.mostrarCpf = true;
         }
         
-    }
+    };
     
     $scope.desarquivar = function(obj){
         var movimento = {};
@@ -490,7 +487,7 @@ $scope.processo = {}
         obj['servidor'] = usuario.name + ' - ' + usuario.matricula;
         var msg = "Desarquivado";
         if(!isEmpty($scope.desarquivo.numero) && !isEmpty($scope.desarquivo.motivo) && (!isEmpty(obj['cpf']) || !isEmpty(obj['matricula']))) {
-            var msg = "Desarquivado";
+            msg = "Desarquivado";
             movimento.status = false;
 
             if($scope.desarquivo.motivo === "ARQUIVAR"){
@@ -504,7 +501,7 @@ $scope.processo = {}
                     obj['valor'] = 10000;
             }else{
                     obj['cpf'] = '';
-                    obj['documento'] = 'Mat: ' + obj['matricula']
+                    obj['documento'] = 'Mat: ' + obj['matricula'];
                     obj['valor'] = 0;
             }
             
@@ -519,12 +516,12 @@ $scope.processo = {}
                     var status = processoService.setStatus(movimento);
                     status.then(function(){
                     alert(msg);
-                    $scope.desarquivo = {}
-                    $scope.arrayMovimento = []
+                    $scope.desarquivo = {};
+                    $scope.arrayMovimento = [];
                     
                     }).catch(function(err){
                         console.log(err);
-                    })
+                    });
                    
                 })
                 .catch(function(err){
@@ -534,7 +531,7 @@ $scope.processo = {}
         }else{
             alert("Preencha todos os campos!");
         }
-    }
+    };
     
     $scope.mostrarMovimento = function(){
         if(contador % 2 === 0){
@@ -544,13 +541,13 @@ $scope.processo = {}
         }
         
         contador++;
-    }
+    };
     
     
     $scope.clean = function(){
         $scope.desarquivo = {};
-        $scope.arrayMovimento = []
-    }
+        $scope.arrayMovimento = [];
+    };
    
     
     
@@ -559,11 +556,11 @@ $scope.processo = {}
 
 .controller("buscaController", ["$scope", "processoService", function($scope, processoService){
     $scope.buscar = 'templates/sub_data.html';
-    $scope.arrayArquivo = []
+    $scope.arrayArquivo = [];
 
 
     var popula = function(value){
-       $scope.arrayArquivo = []
+       $scope.arrayArquivo = [];
 
         var promise = processoService.getBuscaData(value);
         promise.
@@ -581,19 +578,19 @@ $scope.processo = {}
                 $scope.quantidade = $scope.arrayArquivo.length + ' PROCESSOS';
             }
             
-        })
-    } 
+        });
+    };
     
     
     $scope.calcular = function(obj){
        popula(obj);
-    }
+    };
     
     $scope.clean = function(){
-        $scope.tempo = {}
-        $scope.arrayArquivo = []
+        $scope.tempo = {};
+        $scope.arrayArquivo = [];
         $scope.quantidade = null;
-    }
+    };
 
     $scope.remover = function(obj){
         
@@ -605,9 +602,9 @@ $scope.processo = {}
             })
             .catch(function(err){
                 console.log(err);
-            })
+            });
               
-    }
+    };
     
 }]);
 
