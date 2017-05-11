@@ -34,9 +34,7 @@ angular.module('app', ['ngCordova'])
         return $http.post('https://credenciais.herokuapp.com/processos/removeArquivo', obj);
     };
 
-
-
-
+    
     
     return {
         getProcesso: getProcesso,
@@ -70,6 +68,8 @@ angular.module('app', ['ngCordova'])
 			var user = JSON.parse($window.atob($window.localStorage['token'].split('.')[1]));
 			return user;
 		};
+
+     
 
 		return {
 			logar: logar,
@@ -214,7 +214,7 @@ angular.module('app', ['ngCordova'])
 }])
 
 
-.controller("loginController", ["codigosService", "$scope", "loginService", "$window", function(codigosService, $scope, loginService, $window){
+.controller("loginController", ["$http", "processoService", "codigosService", "$scope", "loginService", "$window", function($http, processoService, codigosService, $scope, loginService, $window){
 	$scope.showError = true;    
     $scope.acesso = {};
 	
@@ -229,10 +229,40 @@ angular.module('app', ['ngCordova'])
         
 		var promise = loginService.logar(user);
 
-		promise.then(function(data){
+		promise
+        .then(function(data){
 			if(data.status === 200){
 				$window.localStorage['token'] = data.data.token;
-				$window.activate_page("#page-arquivar"); 
+				$window.activate_page("#page-arquivar");
+                
+                var listar = function(){
+
+                        var array = [];
+
+                        var promise = $http.get('https://credenciais.herokuapp.com/processos');
+
+                        promise.then(function(data){
+                            
+                            var dt2 = new Date();
+                        
+                                data.data.forEach(function(value){
+
+                                   if(dt2 > new Date(value.GAC)){
+                                        array.push(value);
+                                   };
+                                })
+
+                                if(array.length > 0){
+                                    console.log("Documentos para GAI");
+                                };
+
+                            })
+
+                }();
+
+
+
+
 				return;
 			}
 			
@@ -554,57 +584,37 @@ $scope.processo = {};
     
 }])
 
-.controller("buscaController", ["$scope", "processoService", function($scope, processoService){
-    $scope.buscar = 'templates/sub_data.html';
+.controller("buscaController", ["$http", "$scope", "processoService", "$cordovaPrinter", function($http, $scope, processoService, $cordovaPrinter){
+    $scope.buscar = 'templates/sub_recolhimento.html';
     $scope.arrayArquivo = [];
 
+    $scope.imprimir = function(){
+        var doc = "templates/recolhimento.html";
+        $cordovaPrinter.print(doc);
+        console.log("ok");
 
-    var popula = function(value){
-       $scope.arrayArquivo = [];
+            var array = [];
 
-        var promise = processoService.getBuscaData(value);
-        promise.
-            then(function(data){
-            $scope.arrayArquivo = data.data;
-            
-            $scope.arrayArquivo.forEach(function(value){
-               value.arquivoStr = value.arquivo.substring(8,10) + '/' + value.arquivo.substring(5,7) + '/' + value.arquivo.substring(0,4);
-            });
-            
-            
-            if($scope.arrayArquivo.length <= 1){
-                $scope.quantidade = $scope.arrayArquivo.length + ' PROCESSO';
-            }else{
-                $scope.quantidade = $scope.arrayArquivo.length + ' PROCESSOS';
-            }
-            
-        });
-    };
-    
-    
-    $scope.calcular = function(obj){
-       popula(obj);
-    };
-    
-    $scope.clean = function(){
-        $scope.tempo = {};
-        $scope.arrayArquivo = [];
-        $scope.quantidade = null;
-    };
+            var promise = $http.get('https://credenciais.herokuapp.com/processos');
 
-    $scope.remover = function(obj){
-        
-        var promise = processoService.remove(obj);
-        promise
-            .then(function(data){
-                $scope.quantidade = 'Busque novamente para atualizar';
-                $scope.arrayArquivo = [];  
+            promise.then(function(data){
+                            
+                var dt2 = new Date();
+                        
+                data.data.forEach(function(value){
+
+                    if(dt2 > new Date(value.GAC)){
+                    array.push(value);
+                    };
+                })
+
+
+                console.log(array);                               
             })
-            .catch(function(err){
-                console.log(err);
-            });
-              
-    };
+
+
+    }
+
     
 }]);
 

@@ -246,36 +246,14 @@
         <div class="upage hidden page-login-background" id="page-consultar-tempo-arquivo" ng-controller="buscaController">
             <div class="upage-outer">
                 <div class="uib-header header-bg container-group inner-element uib_w_33" data-uib="layout/header" data-ver="0">
-                    <h2>ARQUIVADO ATÉ</h2>
+                    <h2>TRANSFERIR</h2>
                     <div class="widget-container wrapping-col single-centered"></div>
                     <div class="widget-container content-area horiz-area wrapping-col left"></div>
                     <div class="widget-container content-area horiz-area wrapping-col right"></div>
                 </div>
                 <div class="upage-content ac0 content-area vertical-col left" id="page_79_27">
-                    <div class="table-thing widget uib_w_36 label-styles" data-uib="twitter%20bootstrap/input" data-ver="1">
-                        <label class="narrow-control label-top-left" for="txt-dia">DIA</label>
-                        <input class="wide-control form-control default" type="number" placeholder="dia" id="txt-dia" ng-model="tempo.dia">
-                    </div>
-                    <div class="table-thing widget uib_w_39 input-margins label-styles" data-uib="twitter%20bootstrap/input" data-ver="1">
-                        <label class="narrow-control label-top-left" for="txt-mes">MÊS</label>
-                        <input class="wide-control form-control default" type="number" placeholder="mês" id="txt-mes" ng-model="tempo.mes">
-                    </div>
-                    <div class="table-thing widget uib_w_40 label-styles input-margins" data-uib="twitter%20bootstrap/input" data-ver="1">
-                        <label class="narrow-control label-top-left">ANO</label>
-                        <input class="wide-control form-control default" type="number" placeholder="ano" ng-model="tempo.ano">
-                    </div>
-                    <div class="table-thing widget uib_w_44 d-margins label-styles" data-uib="twitter%20bootstrap/select" data-ver="1">
-                        <label class="narrow-control label-top-left">TIPO</label>
-                        <select class="wide-control form-control default" ng-model="tempo.natureza" id="select-tipo-busca">
-                            <option>permanente</option>
-                            <option>eventual</option>
-                            <option>transitoria</option>
-                        </select>
-                    </div>
-                    <button class="btn widget uib_w_38 input-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-buscar-processos" ng-click="calcular(tempo)"><i class="glyphicon glyphicon-search button-icon-top" data-position="top"></i> 
-                    </button>
 
-                    <div class="fonteBranca input-margins">
+                    <!--<div class="fonteBranca input-margins">
                         <center>
                             <span>{{quantidade}}</span>
                         </center>
@@ -283,9 +261,9 @@
 
                     <div class="input-margins" ng-repeat="arquivo in arrayArquivo" ng-class-odd="'odd'" ng-class-even="'even'">
                         <div ng-include="buscar"></div>
-                    </div>
+                    </div>-->
 
-                    <button class="btn widget uib_w_41 d-margins btn-primary" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-clean-arquivo" ng-click="clean()"><i class="glyphicon glyphicon-trash button-icon-top" data-position="top"></i> 
+                    <button class="btn widget uib_w_46 d-margins btn-lg btn-info" data-uib="twitter%20bootstrap/button" data-ver="1" id="btn-imprime" ng-click="imprimir()"><i class="glyphicon glyphicon-print button-icon-top" data-position="top"></i>
                     </button>
                 </div>
 
